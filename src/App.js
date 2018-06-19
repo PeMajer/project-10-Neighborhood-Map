@@ -3,10 +3,12 @@ import './App.css';
 import Map from './Map';
 
 class App extends Component {
+  state = {
+    places: ''
+  }
 
   componentWillMount() {
     window.initMap = this.initMap;
-
   }
 
   initMap() {
@@ -16,6 +18,13 @@ class App extends Component {
       mapTypeControl: false
     });
 
+  }
+
+  loadPlaces() {
+    fetch('./places.json')
+      .then(res => res.json())
+      .then(resJSON => this.setState({ places: resJSON.places }))
+      .catch(err => console.log(err))
   }
 
   hambClick() {

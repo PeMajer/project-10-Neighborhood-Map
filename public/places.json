@@ -1,0 +1,29 @@
+{
+    "places": [
+        {
+            "name": "BlueBerry Apps",
+            "googleId": "ChIJeZAyaVFXWBQRD4a_Vq4vVvg",
+            "position" : {"lat": 50.0516587, "lng": 14.4070306}
+        },
+        {
+            "name": "MeetFactory",
+            "googleId": "ChIJzXQP9kCUC0cR34Omvb-seKQ",
+            "position" : {"lat": 50.0533408, "lng": 14.4083312}
+        },
+        {
+            "name": "Wine Food Market s.r.o.",
+            "googleId": "ChIJ1SixM0KUC0cRNbzFHUxPfWo",
+            "position" : {"lat": 50.0631004, "lng": 14.4102063}
+        },
+        {
+            "name": "Farmarsky trh Naplavka",
+            "googleId": "ChIJ0ZrEsliUC0cRwgIt0sK2J74",
+            "position" : {"lat": 50.0693363, "lng": 14.4143881}
+        },
+        {
+            "name": "U Fleku",
+            "googleId": "ChIJ8YREnvGUC0cR8oAzZCnuSwU",
+            "position" : {"lat": 50.0788076, "lng": 14.4171702}
+        }
+    ]
+}
