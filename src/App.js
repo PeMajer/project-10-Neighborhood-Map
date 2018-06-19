@@ -6,11 +6,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.initMap = this.initMap.bind(this);
+    //this.openInfo = this.openInfo.bind(this);
   }
 
   state = {
     places: '',
     map: {},
+    infoWindow: {},
     markers: {}
   }
 
@@ -35,6 +37,9 @@ class App extends Component {
     })
     map = this.setMarkers(map,this.state.places)
     this.setState({map: map})
+
+    let infoWindow = new window.google.maps.InfoWindow();
+    this.setState({infoWindow: infoWindow})
   }
 
   setMarkers = (map,places) => {
@@ -50,17 +55,31 @@ class App extends Component {
         id: place.googleId
       });
       marker.addListener('click', () => {
-        console.log('click')
+        this.openInfo(marker)
       })
       bounds.extend(marker.position)
       markers.push(marker)
+      return ''
     })
     map.fitBounds(bounds)
     this.setState({markers: markers})
     return map
   }
 
+  openInfo = (marker) => {
+    let infoWindow = this.state.infoWindow
 
+    if (infoWindow.marker !== marker) {
+      infoWindow.setContent('')
+      infoWindow.marker = marker
+      infoWindow.addListener('closeclick', function () {
+        infoWindow.marker = null
+      })
+      infoWindow.setContent('<div>' + marker.title + '</div>')
+      infoWindow.open(this.state.map, marker)
+      this.setState({infoWindow: infoWindow})
+    }
+  }
 
   hambClick() {
     const target = document.querySelector('aside')
