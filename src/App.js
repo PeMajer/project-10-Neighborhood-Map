@@ -3,20 +3,20 @@ import './App.css';
 import Map from './Map';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.initMap = this.initMap.bind(this);
+  }
+
   state = {
-    places: ''
+    places: '',
+    map: {},
+    markers: {}
   }
 
   componentWillMount() {
-    window.initMap = this.initMap;
-  }
-
-  initMap() {
-    let map = new window.google.maps.Map(document.querySelector('#map'), {
-      center: {"lat": 50.0516587, "lng": 14.4070306},
-      zoom: 13,
-      mapTypeControl: false
-    });
+    this.loadPlaces()
+    window.initMap = this.initMap
 
   }
 
@@ -26,6 +26,41 @@ class App extends Component {
       .then(resJSON => this.setState({ places: resJSON.places }))
       .catch(err => console.log(err))
   }
+
+  initMap() {
+    let map = new window.google.maps.Map(document.getElementById('map'), {
+      center: {"lat": 50.0516587, "lng": 14.4070306},
+      zoom: 13,
+      mapTypeId: 'roadmap'
+    })
+    map = this.setMarkers(map,this.state.places)
+    this.setState({map: map})
+  }
+
+  setMarkers = (map,places) => {
+    let markers = []
+    let bounds = new window.google.maps.LatLngBounds()
+
+    places.map((place) => {
+      let marker = new window.google.maps.Marker({
+        position: place.position,
+        map: map,
+        title: place.name,
+        animation: window.google.maps.Animation.DROP,
+        id: place.googleId
+      });
+      marker.addListener('click', () => {
+        console.log('click')
+      })
+      bounds.extend(marker.position)
+      markers.push(marker)
+    })
+    map.fitBounds(bounds)
+    this.setState({markers: markers})
+    return map
+  }
+
+
 
   hambClick() {
     const target = document.querySelector('aside')
