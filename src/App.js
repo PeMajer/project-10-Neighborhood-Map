@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Map from './Map';
+import Filter from './Filter';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class App extends Component {
     places: '',
     map: {},
     infoWindow: {},
-    markers: {}
+    markers: []
   }
 
   componentWillMount() {
@@ -101,7 +102,7 @@ class App extends Component {
           <h1>  Mapa </h1>
         </header>
         <aside>
-          FILTER
+          <Filter markers={this.state.markers} />
         </aside>
         <main>
           <Map />
