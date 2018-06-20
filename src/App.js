@@ -6,9 +6,9 @@ import escapeRegExp from 'escape-string-regexp';
 
 class App extends Component {
   constructor(props) {
-    super(props);
-    this.initMap = this.initMap.bind(this);
-    //this.openInfo = this.openInfo.bind(this);
+    super(props)
+    this.initMap = this.initMap.bind(this)
+    //this.openInfo = this.openInfo.bind(this)
   }
 
   state = {
@@ -35,7 +35,7 @@ class App extends Component {
   initMap() {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: {"lat": 50.0516587, "lng": 14.4070306},
-      zoom: 13,
+      zoom: 12,
       mapTypeId: 'roadmap'
     })
 
@@ -44,6 +44,7 @@ class App extends Component {
 
     let infoWindow = new window.google.maps.InfoWindow();
     this.setState({infoWindow: infoWindow})
+
   }
 
   setMarkers = (map,places) => {
@@ -84,8 +85,6 @@ class App extends Component {
     //let bounds = this.state.bounds
     //let map = this.state.map
 
-
-
     markers.map(marker => {
       marker.setMap(this.state.map)
       //bounds.extend(marker.position)
@@ -115,6 +114,12 @@ class App extends Component {
     console.log('querry: ' + que)
   }
 
+  listItemClick = (markerId) => {
+    for (const marker of this.state.markers) {
+      if (marker.id === markerId) this.openInfo(marker)
+    }
+  }
+
   hambClick() {
     const target = document.querySelector('aside')
     target.classList.toggle('show')
@@ -140,7 +145,7 @@ class App extends Component {
           <h1>  Mapa </h1>
         </header>
         <aside>
-          <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} />
+          <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} onListItemClick={this.listItemClick} />
         </aside>
         <main>
           <Map />

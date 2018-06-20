@@ -15,7 +15,7 @@ export class Filter extends Component {
         />
         <ul>
           {this.props.markers.map(marker =>
-            <li key={marker.id}>
+            <li key={marker.id} onClick={() => this.props.onListItemClick(marker.id) }>
               {marker.title}
             </li>
           )}
