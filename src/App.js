@@ -14,7 +14,6 @@ class App extends Component {
   state = {
     places: '',
     map: {},
-    bounds: {},
     infoWindow: {},
     markers: [],
     query: ''
@@ -44,7 +43,6 @@ class App extends Component {
 
     let infoWindow = new window.google.maps.InfoWindow();
     this.setState({infoWindow: infoWindow})
-
   }
 
   setMarkers = (map,places) => {
@@ -71,7 +69,6 @@ class App extends Component {
     map.fitBounds(bounds)
 
     this.setState({markers: markers})
-    this.setState({showMarkers: markers})
   }
 
   hideMarkers = (markers=this.state.markers) => {
@@ -82,16 +79,10 @@ class App extends Component {
   }
 
   showMarkers = (markers) => {
-    //let bounds = this.state.bounds
-    //let map = this.state.map
-
     markers.map(marker => {
       marker.setMap(this.state.map)
-      //bounds.extend(marker.position)
-
       return ''
     })
-    //map.fitBounds(bounds)
   }
 
   openInfo = (marker) => {
@@ -111,7 +102,12 @@ class App extends Component {
 
   updateQuery = (que) => {
     this.setState({ query: que.trim() })
-    console.log('querry: ' + que)
+
+    let info = this.state.infoWindow
+    info.marker = null
+    this.setState({infoWindow: info})
+
+    this.state.infoWindow.close()
   }
 
   listItemClick = (markerId) => {
