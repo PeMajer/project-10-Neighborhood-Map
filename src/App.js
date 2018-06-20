@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Map from './Map';
 import Filter from './Filter';
+import escapeRegExp from 'escape-string-regexp';
 
 class App extends Component {
   constructor(props) {
@@ -14,13 +15,14 @@ class App extends Component {
     places: '',
     map: {},
     infoWindow: {},
-    markers: []
+    markers: [],
+    query: '',
+    showMarkers: []
   }
 
   componentWillMount() {
     this.loadPlaces()
     window.initMap = this.initMap
-
   }
 
   loadPlaces() {
@@ -64,6 +66,7 @@ class App extends Component {
     })
     map.fitBounds(bounds)
     this.setState({markers: markers})
+    this.setState({showMarkers: markers})
     return map
   }
 
@@ -89,12 +92,26 @@ class App extends Component {
     }
   }
 
+  updateQuery = (que) => {
+    this.setState({ query: que.trim() })
+    console.log('querry: ' + que)
+  }
+
   hambClick() {
     const target = document.querySelector('aside')
     target.classList.toggle('show')
   }
 
   render() {
+    let showingPlaces;
+
+    if (this.state.query) {
+      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+      showingPlaces = this.state.markers.filter((marker) => match.test(marker.title))
+    } else {
+      showingPlaces = this.state.markers
+    }
+
     return (
       <div className="App">
         <header>
@@ -102,7 +119,7 @@ class App extends Component {
           <h1>  Mapa </h1>
         </header>
         <aside>
-          <Filter markers={this.state.markers} />
+          <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} />
         </aside>
         <main>
           <Map />
