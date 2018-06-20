@@ -14,10 +14,10 @@ class App extends Component {
   state = {
     places: '',
     map: {},
+    bounds: {},
     infoWindow: {},
     markers: [],
-    query: '',
-    showMarkers: []
+    query: ''
   }
 
   componentWillMount() {
@@ -38,8 +38,9 @@ class App extends Component {
       zoom: 13,
       mapTypeId: 'roadmap'
     })
-    map = this.setMarkers(map,this.state.places)
+
     this.setState({map: map})
+    this.setMarkers(map,this.state.places)
 
     let infoWindow = new window.google.maps.InfoWindow();
     this.setState({infoWindow: infoWindow})
@@ -49,10 +50,11 @@ class App extends Component {
     let markers = []
     let bounds = new window.google.maps.LatLngBounds()
 
+    this.setState({bounds: bounds})
+
     places.map((place) => {
       let marker = new window.google.maps.Marker({
         position: place.position,
-        map: map,
         title: place.name,
         animation: window.google.maps.Animation.DROP,
         id: place.googleId
@@ -64,10 +66,11 @@ class App extends Component {
       markers.push(marker)
       return ''
     })
+
     map.fitBounds(bounds)
+
     this.setState({markers: markers})
     this.setState({showMarkers: markers})
-    return map
   }
 
   hideMarkers = (markers=this.state.markers) => {
@@ -75,6 +78,21 @@ class App extends Component {
       marker.setMap(null)
       return ''
     })
+  }
+
+  showMarkers = (markers) => {
+    //let bounds = this.state.bounds
+    //let map = this.state.map
+
+
+
+    markers.map(marker => {
+      marker.setMap(this.state.map)
+      //bounds.extend(marker.position)
+
+      return ''
+    })
+    //map.fitBounds(bounds)
   }
 
   openInfo = (marker) => {
@@ -108,8 +126,11 @@ class App extends Component {
     if (this.state.query) {
       const match = new RegExp(escapeRegExp(this.state.query), 'i')
       showingPlaces = this.state.markers.filter((marker) => match.test(marker.title))
+      this.hideMarkers()
+      this.showMarkers(showingPlaces)
     } else {
       showingPlaces = this.state.markers
+      this.showMarkers(this.state.markers)
     }
 
     return (
