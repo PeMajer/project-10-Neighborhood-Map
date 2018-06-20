@@ -53,7 +53,7 @@ class App extends Component {
         title: place.name,
         animation: window.google.maps.Animation.DROP,
         id: place.googleId
-      });
+      })
       marker.addListener('click', () => {
         this.openInfo(marker)
       })
@@ -64,6 +64,13 @@ class App extends Component {
     map.fitBounds(bounds)
     this.setState({markers: markers})
     return map
+  }
+
+  hideMarkers = (markers=this.state.markers) => {
+    markers.map(marker => {
+      marker.setMap(null)
+      return ''
+    })
   }
 
   openInfo = (marker) => {
