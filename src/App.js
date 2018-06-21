@@ -78,15 +78,23 @@ class App extends Component {
     })
   }
 
-  showMarkers = (markers) => {
+  showMarkers = (markers=this.state.markers) => {
     markers.map(marker => {
       marker.setMap(this.state.map)
+      if (marker.isAnimated) {
+        marker.setAnimation(window.google.maps.Animation.BOUNCE)
+      }
       return ''
     })
   }
 
+  offAnimation() {
+    this.state.markers.map(marker => marker.isAnimated = false)
+  }
+
   openInfo = (marker) => {
     let infoWindow = this.state.infoWindow
+    this.offAnimation()
 
     if (infoWindow.marker !== marker) {
       infoWindow.setContent('')
@@ -103,16 +111,22 @@ class App extends Component {
   updateQuery = (que) => {
     this.setState({ query: que.trim() })
 
+    this.offAnimation()
+
     let info = this.state.infoWindow
     info.marker = null
     this.setState({infoWindow: info})
-
     this.state.infoWindow.close()
   }
 
   listItemClick = (markerId) => {
     for (const marker of this.state.markers) {
-      if (marker.id === markerId) this.openInfo(marker)
+      marker.isAnimated = false
+
+      if (marker.id === markerId) {
+        this.openInfo(marker)
+        marker.isAnimated = true
+      }
     }
   }
 
@@ -133,6 +147,9 @@ class App extends Component {
       showingPlaces = this.state.markers
       this.showMarkers(this.state.markers)
     }
+
+
+
 
     return (
       <div className="App">
