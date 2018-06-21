@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   state = {
-    places: '',
+    places: [],
     map: {},
     infoWindow: {},
     markers: [],
@@ -22,12 +22,44 @@ class App extends Component {
   componentWillMount() {
     this.loadPlaces()
     window.initMap = this.initMap
+
+  }
+
+  fetchFourSquare (place) {
+    const clientId = 'LL4UNDUA21U3BS4NRKJ1YZ3PI0ZRTNCOK4QW0E2STF51U0SX'
+    const clientSecret = 'WUKYVCCZKA1YM3J43RG3AKMHIBSQXRPSXRMZVLCMT24GQL34'
+    const lat = place.position.lat
+    const lng = place.position.lng
+    const url = 'https://api.foursquare.com/v2/venues/'
+    const limit = 1
+    const ver = '20180323'
+
+    var urlRequest = `${url}search?client_id=${clientId}&client_secret=${clientSecret}&v=${ver}&ll=${lat},${lng}&limit=${limit}`
+
+
+    return fetch(urlRequest, {
+        method: 'GET'
+      }).then(function (response) {
+        if (!response.ok) {
+          throw new Error(response.statusText ? response.statusText : 'Unknown error')
+        }
+        return response.json()
+      }).then(function(data) {
+        place.foursquareData = data.response.venues[0]
+      }).catch(err => console.log('Error: ', err))
   }
 
   loadPlaces() {
     fetch('./places.json')
       .then(res => res.json())
-      .then(resJSON => this.setState({ places: resJSON.places }))
+      .then(resJSON => resJSON.places)
+      .then(places => {
+          places.map(place => this.fetchFourSquare(place))
+          return places
+      })
+      .then(places => {
+        this.setState({ places: places })
+      })
       .catch(err => console.log(err))
   }
 
@@ -148,7 +180,7 @@ class App extends Component {
       this.showMarkers(this.state.markers)
     }
 
-
+    console.log(this.state.places)
 
 
     return (

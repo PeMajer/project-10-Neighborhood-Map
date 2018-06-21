@@ -15,7 +15,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div id="map">Maps is loading....</div>
+      <div id="map">Map is loading....</div>
     );
   }
 }
