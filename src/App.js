@@ -52,7 +52,7 @@ class App extends Component {
         }).then(function(data) {
           place.data = data.response.venues[0]
           self.setState({
-            places: self.state.places.filter((p) => p.googleId !== place.googleId).concat([ place ])
+            places: self.state.places.filter((p) => p.id !== place.id).concat([ place ])
           })
         }).catch(err => console.log('Error: ', err))
       return ''
@@ -97,7 +97,7 @@ class App extends Component {
         position: place.position,
         title: place.name,
         animation: window.google.maps.Animation.DROP,
-        id: place.googleId
+        id: place.id
       })
 
       marker.addListener('click', () => {
@@ -138,7 +138,7 @@ class App extends Component {
     let infoWindow = this.state.infoWindow
     this.offAnimation()
 
-    const placeData = this.state.places.filter(p => p.googleId === marker.id)
+    const placeData = this.state.places.filter(p => p.id === marker.id)
     const fsData = placeData[0].data
     console.log(fsData)
 

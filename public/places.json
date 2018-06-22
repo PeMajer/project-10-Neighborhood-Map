@@ -2,28 +2,34 @@
     "places": [
         {
             "name": "Narodni divadlo",
-            "googleId": "ChIJKatTv-iUC0cR_ptOFAQG8Z0",
+            "id": "4b688ec9f964a520c47f2be3",
             "position" : {"lat": 50.081020979571406, "lng": 14.413526058197021}
         },
         {
             "name": "MeetFactory",
-            "googleId": "ChIJzXQP9kCUC0cR34Omvb-seKQ",
+            "id": "4af87faaf964a520d50d22e3",
             "position" : {"lat": 50.0533408, "lng": 14.4083312}
         },
         {
             "name": "Wine Food Market s.r.o.",
-            "googleId": "ChIJ1SixM0KUC0cRNbzFHUxPfWo",
+            "id": "4c53013e94790f477e506aa3",
             "position" : {"lat": 50.0631004, "lng": 14.4102063}
         },
         {
             "name": "Jazz Dock",
-            "googleId": "ChIJVwJW9fmUC0cRu3WAFHD1hEc",
+            "id": "4b38f884f964a5204b5325e3",
             "position" : {"lat": 50.077379499785344, "lng": 14.408414610023694}
         },
         {
             "name": "U Fleku",
-            "googleId": "ChIJ8YREnvGUC0cR8oAzZCnuSwU",
+            "id": "4adcda9cf964a520094d21e3",
             "position" : {"lat": 50.0788076, "lng": 14.4171702}
+        },
+        {
+            "name": "BlueBerry Apps",
+            "id": "4ca0448b604c76b03dd7927b",
+            "position" : {"lat": 50.0516587, "lng": 14.4070306}
         }
+
     ]
 }
