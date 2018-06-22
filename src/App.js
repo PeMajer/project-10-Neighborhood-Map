@@ -137,13 +137,24 @@ class App extends Component {
   openInfo = (marker) => {
     let infoWindow = this.state.infoWindow
     this.offAnimation()
+
+    const placeData = this.state.places.filter(p => p.googleId === marker.id)
+    const fsData = placeData[0].data
+    console.log(fsData)
+
+
     if (infoWindow.marker !== marker) {
       infoWindow.setContent('')
       infoWindow.marker = marker
       infoWindow.addListener('closeclick', function () {
         infoWindow.marker = null
       })
-      infoWindow.setContent('<div>' + marker.title + '</div>')
+      let innerHTML = '<div>'
+      fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
+      fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}<p>` : innerHTML += ``
+      fsData.hereNow ? innerHTML += `<p>Here now: ${fsData.hereNow.summary}<p>` : innerHTML += ``
+      innerHTML += '</div>'
+      infoWindow.setContent(innerHTML)
       infoWindow.open(this.state.map, marker)
       this.setState({infoWindow: infoWindow})
     }

@@ -1,9 +1,9 @@
 {
     "places": [
         {
-            "name": "BlueBerry Apps",
-            "googleId": "ChIJeZAyaVFXWBQRD4a_Vq4vVvg",
-            "position" : {"lat": 50.0516587, "lng": 14.4070306}
+            "name": "Narodni divadlo",
+            "googleId": "ChIJKatTv-iUC0cR_ptOFAQG8Z0",
+            "position" : {"lat": 50.081020979571406, "lng": 14.413526058197021}
         },
         {
             "name": "MeetFactory",
@@ -16,9 +16,9 @@
             "position" : {"lat": 50.0631004, "lng": 14.4102063}
         },
         {
-            "name": "Farmarsky trh Naplavka",
-            "googleId": "ChIJ0ZrEsliUC0cRwgIt0sK2J74",
-            "position" : {"lat": 50.0693363, "lng": 14.4143881}
+            "name": "Jazz Dock",
+            "googleId": "ChIJVwJW9fmUC0cRu3WAFHD1hEc",
+            "position" : {"lat": 50.077379499785344, "lng": 14.408414610023694}
         },
         {
             "name": "U Fleku",
