@@ -38,9 +38,8 @@ class App extends Component {
     const self = this
 
     places.map(place => {
-      const lat = place.position.lat
-      const lng = place.position.lng
-      let urlRequest = `${url}search?client_id=${clientId}&client_secret=${clientSecret}&v=${ver}&ll=${lat},${lng}&limit=${limit}`
+      const placeId = place.id
+      let urlRequest = `${url}${placeId}?client_id=${clientId}&client_secret=${clientSecret}&v=${ver}&limit=${limit}`
 
       fetch(urlRequest, {
           method: 'GET'
@@ -50,11 +49,11 @@ class App extends Component {
           }
           return response.json()
         }).then(function(data) {
-          place.data = data.response.venues[0]
+          place.data = data.response.venue
           self.setState({
             places: self.state.places.filter((p) => p.id !== place.id).concat([ place ])
           })
-        }).catch(err => console.log('Error: ', err))
+        }).catch(err => console.log(err + ', maybe quota request exceeded'))
       return ''
     })
   }
@@ -71,8 +70,6 @@ class App extends Component {
   }
 
   initMap() {
-    console.log('mapa nahrana', this.state.places)
-
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: {"lat": 50.0516587, "lng": 14.4070306},
       zoom: 12,
@@ -109,7 +106,6 @@ class App extends Component {
     })
 
     map.fitBounds(bounds)
-
     this.setState({markers: markers})
   }
 
@@ -137,11 +133,8 @@ class App extends Component {
   openInfo = (marker) => {
     let infoWindow = this.state.infoWindow
     this.offAnimation()
-
     const placeData = this.state.places.filter(p => p.id === marker.id)
     const fsData = placeData[0].data
-    console.log(fsData)
-
 
     if (infoWindow.marker !== marker) {
       infoWindow.setContent('')
@@ -150,9 +143,15 @@ class App extends Component {
         infoWindow.marker = null
       })
       let innerHTML = '<div>'
-      fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
-      fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}<p>` : innerHTML += ``
-      fsData.hereNow ? innerHTML += `<p>Here now: ${fsData.hereNow.summary}<p>` : innerHTML += ``
+      if (fsData) {
+        fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
+        fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}</p>` : innerHTML += ``
+        fsData.contact.formattedPhone ? innerHTML += `<p>Phone: ${fsData.contact.formattedPhone}</p>` : innerHTML += ``
+        fsData.url ? innerHTML += `<p>Web site: <a href="${fsData.url}">${fsData.url}</a></p>` : innerHTML += ``
+        fsData.shortUrl ? innerHTML += `<p> <a href="${fsData.shortUrl}">More details</a></p>` : innerHTML += ``
+      } else {
+        innerHTML += `<h2>${marker.title}</h2><p> Can't load data from Foursquare </p>`
+      }
       innerHTML += '</div>'
       infoWindow.setContent(innerHTML)
       infoWindow.open(this.state.map, marker)
@@ -162,7 +161,6 @@ class App extends Component {
 
   updateQuery = (que) => {
     this.setState({ query: que.trim() })
-
     this.offAnimation()
 
     let info = this.state.infoWindow
@@ -174,7 +172,6 @@ class App extends Component {
   listItemClick = (markerId) => {
     for (const marker of this.state.markers) {
       marker.isAnimated = false
-
       if (marker.id === markerId) {
         this.openInfo(marker)
         marker.isAnimated = true
