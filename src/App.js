@@ -113,7 +113,7 @@ class App extends Component {
       infoWindow.addListener('closeclick', function () {
         infoWindow.marker = null
       })
-      let innerHTML = '<div>'
+      let innerHTML = `<article className="info" role="article">`
       if (fsData) {
         fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
         fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}</p>` : innerHTML += ``
@@ -123,9 +123,10 @@ class App extends Component {
       } else {
         innerHTML += `<h2>${marker.title}</h2><p> Can't load data from Foursquare </p>`
       }
-      innerHTML += '</div>'
+      innerHTML += '</article>'
       infoWindow.setContent(innerHTML)
       infoWindow.open(this.state.map, marker)
+
       this.setState({infoWindow: infoWindow})
     }
   }
@@ -151,7 +152,7 @@ class App extends Component {
   }
 
   hambClick() {
-    const target = document.querySelector('aside')
+    const target = document.querySelector('nav')
     target.classList.toggle('show')
   }
 
@@ -171,12 +172,12 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <button className='hamburger' onClick={() => this.hambClick()} >&#9776; </button>
+          <button tabIndex={-1}  className='hamburger' onClick={() => this.hambClick()} >&#9776; </button>
           <h1>  Mapa </h1>
         </header>
-        <aside>
+        <nav>
           <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} onListItemClick={this.listItemClick} />
-        </aside>
+        </nav>
         <main>
           <Map />
         </main>

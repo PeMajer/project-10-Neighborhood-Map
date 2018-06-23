@@ -41,21 +41,19 @@ header h1 {
   margin-left: 1rem;
 }
 
-aside {
+nav {
   position: absolute;
-  left: -20%;
-  visibility: hidden;
+  left: -25%;
   width: 20vw;
   background-color: blue;
 }
 
 .show {
-  visibility: visible;
   top: 80px;
   z-index: 10;
   height: calc(100vh - 80px);
   transition: transform 1s;
-  transform: translate(20vw);
+  transform: translate(25vw);
 }
 
 main {

@@ -8,15 +8,23 @@ export class Filter extends Component {
     return (
       <div>
         <input
+          role="search"
+          aria-label="Search place from places list"
           className='filter-places'
           type='text'
-          placeholder='Filter places'
+          placeholder='Search places'
           value={this.props.query}
           onChange={(event) => this.props.onUpdateQuery(event.target.value )}
         />
         <ul>
           {this.props.markers.map(marker =>
-            <li key={marker.id} onClick={() => this.props.onListItemClick(marker.id) }>
+            <li key={marker.id}
+              onClick={() => this.props.onListItemClick(marker.id) }
+              role="link"
+              tabIndex={0}
+              onKeyUp={event =>
+                (event.keyCode === 13) ? this.props.onListItemClick(marker.id) : ''
+                } >
               {marker.title}
             </li>
           )}
