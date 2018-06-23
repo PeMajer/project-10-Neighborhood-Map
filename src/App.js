@@ -29,7 +29,6 @@ class App extends Component {
     window.initMap = this.initMap
   }
 
-
   loadPlaces() {
     return fetch('./places.json')
       .then(res => res.json())
@@ -44,7 +43,7 @@ class App extends Component {
   initMap() {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: {"lat": 50.0516587, "lng": 14.4070306},
-      zoom: 12,
+      zoom: 9,
       mapTypeId: 'roadmap'
     })
 

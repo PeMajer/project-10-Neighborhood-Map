@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import SortBy from 'sort-by';
 
 export class Filter extends Component {
-
   render() {
+    this.props.markers.sort(SortBy('title'))
+
     return (
       <div>
         <input

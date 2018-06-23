@@ -1,6 +1,6 @@
 export function fetchFourSquare (places) {
   const clientId = 'LL4UNDUA21U3BS4NRKJ1YZ3PI0ZRTNCOK4QW0E2STF51U0SX'
-  const clientSecret = 'WUKYVCCZKA1YM3J43RG3AKMHIBSQXRPSXRMZVLCMT24GQL34'
+  const clientSecret = 'NUVCYT5FIODESPB0EB4GZ3BEZAM43GHXVJPX0HYYH0YJA4G1'
   const url = 'https://api.foursquare.com/v2/venues/'
   const limit = 1
   const ver = '20180323'
