@@ -41,9 +41,15 @@ header h1 {
   margin-left: 1rem;
 }
 
+.info {
+  background-color: yellow;
+}
+
 nav {
   position: absolute;
-  left: -25%;
+  left: 0;
+  z-index: 10;
+  top: 80px;
   width: 20vw;
   background-color: blue;
 }

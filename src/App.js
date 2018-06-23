@@ -29,6 +29,14 @@ class App extends Component {
     window.initMap = this.initMap
   }
 
+  componentDidUpdate() {
+    const infoWindowEle = document.querySelector('.info')
+    if (infoWindowEle !== null) {
+      setTimeout(function(){ infoWindowEle.focus() }, 1)
+      console.log('neni null')
+    }
+  }
+
   loadPlaces() {
     return fetch('./places.json')
       .then(res => res.json())
@@ -106,14 +114,13 @@ class App extends Component {
     this.offAnimation()
     const placeData = this.state.places.filter(p => p.id === marker.id)
     const fsData = placeData[0].data
-
     if (infoWindow.marker !== marker) {
       infoWindow.setContent('')
       infoWindow.marker = marker
       infoWindow.addListener('closeclick', function () {
         infoWindow.marker = null
       })
-      let innerHTML = `<article className="info" role="article">`
+      let innerHTML = `<article class="info" role="article" tabindex="2">`
       if (fsData) {
         fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
         fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}</p>` : innerHTML += ``
@@ -126,7 +133,6 @@ class App extends Component {
       innerHTML += '</article>'
       infoWindow.setContent(innerHTML)
       infoWindow.open(this.state.map, marker)
-
       this.setState({infoWindow: infoWindow})
     }
   }
@@ -168,11 +174,11 @@ class App extends Component {
       showingPlaces = this.state.markers
       this.showMarkers(this.state.markers)
     }
-
+    console.log('update')
     return (
       <div className="App">
         <header>
-          <button tabIndex={-1}  className='hamburger' onClick={() => this.hambClick()} >&#9776; </button>
+          <button tabIndex={-1} className='hamburger' onClick={() => this.hambClick()} >&#9776; </button>
           <h1>  Mapa </h1>
         </header>
         <nav>

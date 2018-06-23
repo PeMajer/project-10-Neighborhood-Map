@@ -9,6 +9,7 @@ export class Filter extends Component {
       <div>
         <input
           role="search"
+          tabIndex={3}
           aria-label="Search place from places list"
           className='filter-places'
           type='text'
@@ -20,8 +21,8 @@ export class Filter extends Component {
           {this.props.markers.map(marker =>
             <li key={marker.id}
               onClick={() => this.props.onListItemClick(marker.id) }
-              role="link"
-              tabIndex={0}
+              role="option"
+              tabIndex={4}
               onKeyUp={event =>
                 (event.keyCode === 13) ? this.props.onListItemClick(marker.id) : ''
                 } >
