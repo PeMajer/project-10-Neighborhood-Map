@@ -15,7 +15,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div id="map" tabIndex={-1}>Map is loading....</div>
+      <div id="map" role="application" aria-label="Map">Map is loading....</div>
     );
   }
 }

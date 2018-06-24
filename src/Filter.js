@@ -8,12 +8,10 @@ export class Filter extends Component {
     return (
       <div>
         <input
-          role="search"
-          tabIndex={3}
-          aria-label="Search place from places list"
+          tabIndex={4}
           className='filter-places'
           type='text'
-          placeholder='Search places'
+          placeholder='Filter places'
           value={this.props.query}
           onChange={(event) => this.props.onUpdateQuery(event.target.value )}
         />
@@ -21,8 +19,8 @@ export class Filter extends Component {
           {this.props.markers.map(marker =>
             <li key={marker.id}
               onClick={() => this.props.onListItemClick(marker.id) }
-              role="option"
-              tabIndex={4}
+              role="button"
+              tabIndex={5}
               onKeyUp={event =>
                 (event.keyCode === 13) ? this.props.onListItemClick(marker.id) : ''
                 } >

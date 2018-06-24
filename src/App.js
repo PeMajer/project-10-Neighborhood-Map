@@ -35,6 +35,9 @@ class App extends Component {
       setTimeout(function(){ infoWindowEle.focus() }, 1)
       console.log('neni null')
     }
+
+
+
   }
 
   loadPlaces() {
@@ -125,8 +128,8 @@ class App extends Component {
         fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
         fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}</p>` : innerHTML += ``
         fsData.contact.formattedPhone ? innerHTML += `<p>Phone: ${fsData.contact.formattedPhone}</p>` : innerHTML += ``
-        fsData.url ? innerHTML += `<p>Web site: <a href="${fsData.url}">${fsData.url}</a></p>` : innerHTML += ``
-        fsData.shortUrl ? innerHTML += `<p> <a href="${fsData.shortUrl}">More details</a></p>` : innerHTML += ``
+        fsData.url ? innerHTML += `<p>Web site: <a tabindex="2" href="${fsData.url}">${fsData.url}</a></p>` : innerHTML += ``
+        fsData.shortUrl ? innerHTML += `<p> <a tabindex="2" href="${fsData.shortUrl}">More details</a></p>` : innerHTML += ``
       } else {
         innerHTML += `<h2>${marker.title}</h2><p> Can't load data from Foursquare </p>`
       }
@@ -134,7 +137,9 @@ class App extends Component {
       infoWindow.setContent(innerHTML)
       infoWindow.open(this.state.map, marker)
       this.setState({infoWindow: infoWindow})
+
     }
+
   }
 
   updateQuery = (que) => {
@@ -179,7 +184,7 @@ class App extends Component {
       <div className="App">
         <header>
           <button tabIndex={-1} className='hamburger' onClick={() => this.hambClick()} >&#9776; </button>
-          <h1>  Mapa </h1>
+          <h1> <a tabIndex={1} href='/'> Mapa </a></h1>
         </header>
         <nav>
           <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} onListItemClick={this.listItemClick} />
