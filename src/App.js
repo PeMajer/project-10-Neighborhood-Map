@@ -9,7 +9,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.initMap = this.initMap.bind(this)
-   // this.fetchFourSquare = this.fetchFourSquare.bind(this)
     this.closeInfo = this.closeInfo.bind(this)
   }
 
@@ -104,10 +103,6 @@ class App extends Component {
     })
   }
 
-  offAnimation() {
-    this.state.markers.map(marker => marker.isAnimated = false)
-  }
-
   openInfo = (marker) => {
     let infoWindow = this.state.infoWindow
     this.offAnimation()
@@ -116,9 +111,8 @@ class App extends Component {
     if (infoWindow.marker !== marker) {
       infoWindow.setContent('')
       infoWindow.marker = marker
-      infoWindow.addListener('closeclick', function () {
-        infoWindow.marker = null
-      })
+
+      infoWindow.addListener('closeclick', this.closeInfo)
       let innerHTML = `<article class="info" role="article" tabindex="2">`
       if (fsData) {
         fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
@@ -142,7 +136,12 @@ class App extends Component {
     }
   }
 
+  offAnimation() {
+    this.state.markers.map(marker => marker.isAnimated = false)
+  }
+
   closeInfo() {
+    this.offAnimation()
     let info = this.state.infoWindow
     info.marker = null
     this.setState({infoWindow: info})
