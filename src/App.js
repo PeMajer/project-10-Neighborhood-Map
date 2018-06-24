@@ -114,14 +114,14 @@ class App extends Component {
       infoWindow.addListener('closeclick', this.closeInfo)
       let innerHTML = `<article class="info" role="article" tabindex="2">`
       if (fsData) {
-        innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information window"> X </button>`
+        innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information"> X </button>`
         fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
         fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}</p>` : innerHTML += ``
         fsData.contact.formattedPhone ? innerHTML += `<p>Phone: ${fsData.contact.formattedPhone}</p>` : innerHTML += ``
         fsData.url ? innerHTML += `<p>Web site: <a tabindex="2" href="${fsData.url}">${fsData.url}</a></p>` : innerHTML += ``
         fsData.shortUrl ? innerHTML += `<p> <a tabindex="2" href="${fsData.shortUrl}">More details</a></p>` : innerHTML += ``
       } else {
-        innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information window"> X </button>`
+        innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information"> X </button>`
         innerHTML += `<h2>${marker.title}</h2><p> Can't load data from Foursquare </p>`
       }
       innerHTML += '</article>'
@@ -180,17 +180,16 @@ class App extends Component {
       showingPlaces = this.state.markers
       this.showMarkers(this.state.markers)
     }
-
     return (
       <div className="App">
-        <header>
+        <header role='banner'>
           <button tabIndex={-1} className='hamburger' onClick={() => this.hambClick()} >&#9776; </button>
           <h1> <a tabIndex={1} href='/'> Mapa </a></h1>
         </header>
         <nav>
           <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} onListItemClick={this.listItemClick} />
         </nav>
-        <main>
+        <main role="main">
           <Map />
         </main>
       </div>

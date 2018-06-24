@@ -23,7 +23,7 @@ export class Filter extends Component {
               tabIndex={5}
               onKeyUp={event =>
                 (event.keyCode === 13) ? this.props.onListItemClick(marker.id) : ''
-                } >
+                }>
               {marker.title}
             </li>
           )}
