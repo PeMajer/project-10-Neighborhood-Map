@@ -41,10 +41,6 @@ header h1 {
   margin-left: 1rem;
 }
 
-.info {
-  background-color: yellow;
-}
-
 nav {
   position: absolute;
   left: 0;
@@ -70,6 +66,22 @@ main {
 #map {
   width: 100%;
   height: 100%;
+}
+
+.info {
+
+  background-color: red;
+
+}
+
+.close-infowindow {
+  position: absolute;
+  left: -30px;
+  top: 0;
+}
+
+.close-infowindow:focus {
+  left: 0;
 }
 
 .test {

@@ -10,7 +10,7 @@ class App extends Component {
     super(props)
     this.initMap = this.initMap.bind(this)
    // this.fetchFourSquare = this.fetchFourSquare.bind(this)
-    //this.openInfo = this.openInfo.bind(this)
+    this.closeInfo = this.closeInfo.bind(this)
   }
 
   state = {
@@ -33,11 +33,7 @@ class App extends Component {
     const infoWindowEle = document.querySelector('.info')
     if (infoWindowEle !== null) {
       setTimeout(function(){ infoWindowEle.focus() }, 1)
-      console.log('neni null')
     }
-
-
-
   }
 
   loadPlaces() {
@@ -126,30 +122,37 @@ class App extends Component {
       let innerHTML = `<article class="info" role="article" tabindex="2">`
       if (fsData) {
         fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
+        innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information window"> X </button>`
         fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}</p>` : innerHTML += ``
         fsData.contact.formattedPhone ? innerHTML += `<p>Phone: ${fsData.contact.formattedPhone}</p>` : innerHTML += ``
         fsData.url ? innerHTML += `<p>Web site: <a tabindex="2" href="${fsData.url}">${fsData.url}</a></p>` : innerHTML += ``
         fsData.shortUrl ? innerHTML += `<p> <a tabindex="2" href="${fsData.shortUrl}">More details</a></p>` : innerHTML += ``
       } else {
         innerHTML += `<h2>${marker.title}</h2><p> Can't load data from Foursquare </p>`
+        innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information window"> X </button>`
       }
       innerHTML += '</article>'
       infoWindow.setContent(innerHTML)
       infoWindow.open(this.state.map, marker)
       this.setState({infoWindow: infoWindow})
-
+      document.querySelector('.close-infowindow').addEventListener('click',() => { // close button for reader
+        this.closeInfo()
+        document.querySelector('.filter-places').focus( )
+      })
     }
+  }
 
+  closeInfo() {
+    let info = this.state.infoWindow
+    info.marker = null
+    this.setState({infoWindow: info})
+    this.state.infoWindow.close()
   }
 
   updateQuery = (que) => {
     this.setState({ query: que.trim() })
     this.offAnimation()
-
-    let info = this.state.infoWindow
-    info.marker = null
-    this.setState({infoWindow: info})
-    this.state.infoWindow.close()
+    this.closeInfo()
   }
 
   listItemClick = (markerId) => {
@@ -179,7 +182,7 @@ class App extends Component {
       showingPlaces = this.state.markers
       this.showMarkers(this.state.markers)
     }
-    console.log('update')
+
     return (
       <div className="App">
         <header>
