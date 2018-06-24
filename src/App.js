@@ -111,19 +111,18 @@ class App extends Component {
     if (infoWindow.marker !== marker) {
       infoWindow.setContent('')
       infoWindow.marker = marker
-
       infoWindow.addListener('closeclick', this.closeInfo)
       let innerHTML = `<article class="info" role="article" tabindex="2">`
       if (fsData) {
-        fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
         innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information window"> X </button>`
+        fsData.name ? innerHTML += `<h2>${fsData.name}</h2>` : innerHTML += `<h2>${marker.title}</h2>`
         fsData.location.formattedAddress ? innerHTML += `<p>${fsData.location.formattedAddress.join(', ')}</p>` : innerHTML += ``
         fsData.contact.formattedPhone ? innerHTML += `<p>Phone: ${fsData.contact.formattedPhone}</p>` : innerHTML += ``
         fsData.url ? innerHTML += `<p>Web site: <a tabindex="2" href="${fsData.url}">${fsData.url}</a></p>` : innerHTML += ``
         fsData.shortUrl ? innerHTML += `<p> <a tabindex="2" href="${fsData.shortUrl}">More details</a></p>` : innerHTML += ``
       } else {
-        innerHTML += `<h2>${marker.title}</h2><p> Can't load data from Foursquare </p>`
         innerHTML += `<button class="close-infowindow" tabindex="2" aria-label="Close information window"> X </button>`
+        innerHTML += `<h2>${marker.title}</h2><p> Can't load data from Foursquare </p>`
       }
       innerHTML += '</article>'
       infoWindow.setContent(innerHTML)
