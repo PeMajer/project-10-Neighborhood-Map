@@ -150,7 +150,8 @@ main {
 }
 
 .info {
-  margin: 0.5rem ;
+  margin: 0.5rem;
+  padding: 5px;
 }
 
 .info h2 {
@@ -159,6 +160,11 @@ main {
 
 .info p {
   max-width: 200px;
+}
+
+.info p:last-of-type {
+  text-align: center;
+  margin: 20px 0 0;
 }
 
 .close-infowindow {
@@ -216,6 +222,11 @@ main {
     text-align: left;
     padding-left: 2.5rem;
   }
+
+  .info {
+    padding: 1rem;
+  }
+
   .info p {
     max-width: 360px;
   }
