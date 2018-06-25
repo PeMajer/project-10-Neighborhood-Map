@@ -105,7 +105,6 @@ nav {
   top: 50px;
   width: 80vw;
   max-width: 220px;
-  /*width: fit-content;*/
   background-color: #fff;
 }
 
@@ -114,12 +113,21 @@ nav li {
   padding: 1rem;
   margin: 0 0.5rem;
   width: calc( 100% - 1rem);
- /* width: fit-content;*/
 }
 
 .show {
-  transition: transform 1s;
-  transform: translate(100vw);
+  left: 0;
+  animation-duration: 1s;
+  animation-name: slide;
+}
+
+@keyframes slide {
+  from {
+    left: -100vw;
+  }
+  to {
+    left: 0;
+  }
 }
 
 .filter-places {
@@ -150,7 +158,7 @@ main {
 }
 
 .info p {
-  max-width: 320px;
+  max-width: 200px;
 }
 
 .close-infowindow {
@@ -164,7 +172,7 @@ main {
   right: 3px;
 }
 
-@media only screen and (min-width: 200px) {
+@media only screen and (min-width: 320px) {
   html {
     font-size: 12px;
   }
@@ -179,6 +187,10 @@ main {
 
   .info h2 {
     font-size: 1.2rem;
+  }
+
+  .info p {
+    max-width: 260px;
   }
 }
 
@@ -204,6 +216,9 @@ main {
     text-align: left;
     padding-left: 2.5rem;
   }
+  .info p {
+    max-width: 360px;
+  }
 }
 
 @media only screen and (min-width: 900px) {
@@ -221,15 +236,25 @@ main {
   }
 
   .show {
-    transition: transform 1s;
-    transform: translate(-100vw);
+    left: -100vw;
+  }
 
+  @keyframes slide {
+    from {
+      left: 0;
+    }
+    to {
+      left: -100vw;
+    }
   }
 }
 
 @media only screen and (min-width:  1200px) {
   html {
     font-size: 15px;
+  }
+  header h1 {
+    font-size: 1.7rem;
   }
 }
 
