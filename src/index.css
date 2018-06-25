@@ -1,21 +1,61 @@
 html {
   box-sizing: border-box;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-body {
+body,
+button {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
 
-html, body, .root {
+html,
+body,
+.root {
   height: 100%;
 }
 
+body,
+p,
+ul,
+li {
+	font-size: 1rem;
+	color: #333;
+	line-height: 1.2;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  width: fit-content;
+}
+
+a {
+	color: orange;
+	text-decoration: none;
+}
+
+a:hover,
+:focus {
+  outline: 0;
+  text-decoration: none;
+  box-shadow: 0px 0 8px 6px#77c6fc;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+/*----------- Application ------------*/
 .App {
   height: 100vh;
   width: 100vw;
@@ -24,44 +64,75 @@ html, body, .root {
   flex-wrap: wrap;
 }
 
+/*----------- HEADER ------------*/
 header {
+  line-height: 50px;
   width: 100%;
-  height: 80px;
+  height: 50px;
 }
 
 header h1 {
   display: inline-block;
-  width: 90%;
+  width: 85%;
   text-align: center;
+  font-size: 1.2rem;
+}
+
+header h1 a {
+  color: black;
 }
 
 .hamburger {
-  font-size: 1.5em;
+  width: 15%;
+  text-align: center;
   display: inline-block;
-  margin-left: 1rem;
 }
 
+.hamburger-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.hamburger-icon:focus {
+  box-shadow: 0 0 0 0 #fff;
+}
+
+/*----------- NAV ------------*/
 nav {
   position: absolute;
-  left: 0;
+  left: -100vw;
   z-index: 10;
-  top: 80px;
-  width: 20vw;
-  background-color: blue;
+  top: 50px;
+  width: 80vw;
+  width: fit-content;;
+  background-color: #fff;
 }
 
 .show {
-  top: 80px;
   z-index: 10;
-  height: calc(100vh - 80px);
+   /* height: calc(100vh - 80px);*/
   transition: transform 1s;
-  transform: translate(25vw);
+  transform: translate(100vw);
+}
+
+.filter-places {
+  padding: 0.5rem;
+  border: 2px solid black;
+  margin: 0.5rem;
+}
+
+nav li {
+  cursor: pointer;
+  padding: 1rem;
+  margin: 0 0.5rem;
 }
 
 main {
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 50px);
 }
+
+/*----------- MAP ------------*/
 
 #map {
   width: 100%;
@@ -84,6 +155,16 @@ main {
   left: 0;
 }
 
-.test {
-  background-color: green;
+@media only screen and (min-width: 200px) {
+  html {
+    font-size: 12px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .hamburger-icon {
+    font-size: 1.5rem;
+  }
 }

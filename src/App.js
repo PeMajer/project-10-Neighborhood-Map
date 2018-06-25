@@ -183,8 +183,8 @@ class App extends Component {
     return (
       <div className="App">
         <header role='banner'>
-          <button tabIndex={-1} className='hamburger' onClick={() => this.hambClick()} >&#9776; </button>
-          <h1> <a tabIndex={1} href='/'> Mapa </a></h1>
+          <div className='hamburger'><button tabIndex={-1} className='hamburger-icon' onClick={() => this.hambClick()} >&#9776; </button></div>
+          <h1> <a tabIndex={1} href='/'> Neighborhood Map </a></h1>
         </header>
         <nav>
           <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} onListItemClick={this.listItemClick} />
