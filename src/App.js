@@ -52,10 +52,8 @@ class App extends Component {
       zoom: 9,
       mapTypeId: 'roadmap'
     })
-
     this.setState({map: map})
     this.setMarkers(map,this.state.places)
-
     let infoWindow = new window.google.maps.InfoWindow();
     this.setState({infoWindow: infoWindow})
   }
@@ -63,7 +61,6 @@ class App extends Component {
   setMarkers = (map,places) => {
     let markers = []
     let bounds = new window.google.maps.LatLngBounds()
-
     this.setState({bounds: bounds})
 
     places.map((place) => {
@@ -81,7 +78,6 @@ class App extends Component {
       markers.push(marker)
       return ''
     })
-
     map.fitBounds(bounds)
     this.setState({markers: markers})
   }
@@ -108,6 +104,7 @@ class App extends Component {
     this.offAnimation()
     const placeData = this.state.places.filter(p => p.id === marker.id)
     const fsData = placeData[0].data
+
     if (infoWindow.marker !== marker) {
       infoWindow.setContent('')
       infoWindow.marker = marker
@@ -171,7 +168,6 @@ class App extends Component {
 
   render() {
     let showingPlaces;
-
     if (this.state.query) {
       const match = new RegExp(escapeRegExp(this.state.query), 'i')
       showingPlaces = this.state.markers.filter((marker) => match.test(marker.title))
