@@ -16,12 +16,12 @@ export function fetchFourSquare (places) {
 
     fetch(urlRequest, {
         method: 'GET'
-      }).then(function (response) {
+      }).then((response) => {
         if (!response.ok) {
           throw new Error(response.statusText ? response.statusText : response.status === 429 ? 'Daily call quota exceeded.' : 'Unknown error.' )
         }
         return response.json()
-      }).then(function(data) {
+      }).then((data) => {
         place.data = data.response.venue
         this.setState({
           places: this.state.places.filter((p) => p.id !== place.id).concat([ place ])

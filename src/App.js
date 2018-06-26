@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.loadPlaces().then(places => fetchFourSquare(places))
+    this.loadPlaces().then(places => fetchFourSquare.call(this,places))
   }
 
   componentDidMount() {
