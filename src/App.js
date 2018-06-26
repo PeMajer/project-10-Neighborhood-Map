@@ -188,7 +188,7 @@ class App extends Component {
           <h1> <a tabIndex={1} href='/'> Neighborhood Map </a></h1>
         </header>
         <nav>
-          <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} onListItemClick={this.listItemClick} />
+          <Filter markers={showingPlaces} onUpdateQuery={this.updateQuery} onListItemClick={this.listItemClick} query={this.state.query} />
         </nav>
         <main role="main">
           <Map />

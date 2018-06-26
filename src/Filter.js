@@ -6,7 +6,7 @@ export class Filter extends Component {
   static propTypes = {
     onUpdateQuery: PropTypes.func.isRequired,
     onListItemClick: PropTypes.func.isRequired,
-    query: PropTypes.string.isRequired,
+    query: PropTypes.string,
     markers: PropTypes.array.isRequired
   }
 
