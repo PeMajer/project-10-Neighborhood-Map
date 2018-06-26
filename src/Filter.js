@@ -11,7 +11,7 @@ export class Filter extends Component {
   }
 
   render() {
-    this.props.markers.sort(SortBy('title'))
+    this.props.markers.sort(SortBy('title'))   // sort places A->Z
     return (
       <div>
         <input

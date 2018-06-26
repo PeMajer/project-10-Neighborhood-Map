@@ -3,14 +3,15 @@ import React, {Component} from 'react';
 class Map extends Component {
 
   componentWillMount() {
-    window.gm_authFailure = () => alert("Error, check API key");
-    const bodyTag = document.querySelector('body');
-    let mapsTag = document.createElement('script');
-    mapsTag.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr-4lNZOkFhaRjW_wkxMvvyxxBKpeDVQ&libraries=places,geometry,drawing&callback=initMap';
-    mapsTag.onerror = () => alert("Error between loading Google Maps");
-    mapsTag.async = true;
-    mapsTag.defer = true;
-    bodyTag.appendChild(mapsTag);
+    // Loading the Maps JavaScript API
+    window.gm_authFailure = () => alert("Error, check API key")
+    const bodyEle = document.querySelector('body')
+    let mapsEle = document.createElement('script')
+    mapsEle.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr-4lNZOkFhaRjW_wkxMvvyxxBKpeDVQ&libraries=places,geometry,drawing&callback=initMap'
+    mapsEle.onerror = () => alert("Error between loading Google Maps")
+    mapsEle.async = true
+    mapsEle.defer = true
+    bodyEle.appendChild(mapsEle)
   }
 
   render() {

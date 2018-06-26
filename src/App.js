@@ -30,11 +30,14 @@ class App extends Component {
 
   componentDidUpdate() {
     const infoWindowEle = document.querySelector('.info')
-    if (infoWindowEle !== null) {
+    if (infoWindowEle !== null) {       // set target on infowindow
       setTimeout(function(){ infoWindowEle.focus() }, 1)
     }
   }
 
+  /**
+  * @description load/fetch places information from json files
+  */
   loadPlaces() {
     return fetch('./places.json')
       .then(res => res.json())
@@ -46,6 +49,9 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
+  /**
+  * @description initial google map
+  */
   initMap() {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       center: {"lat": 50.0516587, "lng": 14.4070306},
@@ -58,6 +64,11 @@ class App extends Component {
     this.setState({infoWindow: infoWindow})
   }
 
+  /**
+  * @description set map markers and bounds
+  * @param {object} map
+  * @param {array} places
+  */
   setMarkers = (map,places) => {
     let markers = []
     let bounds = new window.google.maps.LatLngBounds()
@@ -70,18 +81,21 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP,
         id: place.id
       })
-
       marker.addListener('click', () => {
         this.openInfo(marker)
       })
-      bounds.extend(marker.position)
+      bounds.extend(marker.position)  // add marker into bounds
       markers.push(marker)
       return ''
     })
-    map.fitBounds(bounds)
+    map.fitBounds(bounds)    // set bounds
     this.setState({markers: markers})
   }
 
+  /**
+  * @description hide all markers
+  * @param {array} markers
+  */
   hideMarkers = (markers=this.state.markers) => {
     markers.map(marker => {
       marker.setMap(null)
@@ -89,6 +103,10 @@ class App extends Component {
     })
   }
 
+  /**
+  * @description show all markers
+  * @param {array} markers
+  */
   showMarkers = (markers=this.state.markers) => {
     markers.map(marker => {
       marker.setMap(this.state.map)
@@ -99,14 +117,18 @@ class App extends Component {
     })
   }
 
+  /**
+  * @description show all markers
+  * @param {object} markers
+  */
   openInfo = (marker) => {
     let infoWindow = this.state.infoWindow
-    this.offAnimation()
-    const placeData = this.state.places.filter(p => p.id === marker.id)
+    this.offAnimation()   //cancel marker animation
+    const placeData = this.state.places.filter(p => p.id === marker.id)  // find data for place/marker
     const fsData = placeData[0].data
-
+    // if click on same infowindows dont open again
     if (infoWindow.marker !== marker) {
-      infoWindow.setContent('')
+      infoWindow.setContent('')   // delete infowindow content
       infoWindow.marker = marker
       infoWindow.addListener('closeclick', this.closeInfo)
       let innerHTML = `<article class="info" role="article" tabindex="2">`
@@ -126,17 +148,23 @@ class App extends Component {
       infoWindow.setContent(innerHTML)
       infoWindow.open(this.state.map, marker)
       this.setState({infoWindow: infoWindow})
-      document.querySelector('.close-infowindow').addEventListener('click',() => { // close button for reader
+      document.querySelector('.close-infowindow').addEventListener('click',() => { // close button for web reader
         this.closeInfo()
-        document.querySelector('.filter-places').focus( )
+        document.querySelector('.filter-places').focus()  // focus on filter element
       })
     }
   }
 
+  /**
+  * @description cancel markers animation
+  */
   offAnimation() {
     this.state.markers.map(marker => marker.isAnimated = false)
   }
 
+  /**
+  * @description close infowindow
+  */
   closeInfo() {
     this.offAnimation()
     let info = this.state.infoWindow
@@ -145,12 +173,20 @@ class App extends Component {
     this.state.infoWindow.close()
   }
 
+  /**
+  * @description update query from places filter
+  * @param {string} querry - string from filter input
+  */
   updateQuery = (que) => {
     this.setState({ query: que.trim() })
     this.offAnimation()
     this.closeInfo()
   }
 
+  /**
+  * @description open infowindow when click on place in list
+  * @param {string} markerId - marker ID
+  */
   listItemClick = (markerId) => {
     for (const marker of this.state.markers) {
       marker.isAnimated = false
@@ -161,20 +197,23 @@ class App extends Component {
     }
   }
 
+  /**
+  * @description show nav vwhen click on hanburger icon
+  */
   hambClick() {
     const target = document.querySelector('nav')
     target.classList.toggle('show')
   }
 
   render() {
-    let showingPlaces;
-    if (this.state.query) {
+    let showingPlaces // variables for fitering places
+    if (this.state.query) {   // places filtering
       const match = new RegExp(escapeRegExp(this.state.query), 'i')
       showingPlaces = this.state.markers.filter((marker) => match.test(marker.title))
       this.hideMarkers()
       this.showMarkers(showingPlaces)
     } else {
-      showingPlaces = this.state.markers
+      showingPlaces = this.state.markers  // set all places
       this.showMarkers(this.state.markers)
     }
     return (
