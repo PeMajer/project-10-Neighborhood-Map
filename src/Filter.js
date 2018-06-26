@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import SortBy from 'sort-by';
+import PropTypes from 'prop-types';
 
 export class Filter extends Component {
+  static propTypes = {
+    onUpdateQuery: PropTypes.func.isRequired,
+    onListItemClick: PropTypes.func.isRequired,
+    query: PropTypes.string.isRequired,
+    markers: PropTypes.array.isRequired
+  }
+
   render() {
     this.props.markers.sort(SortBy('title'))
-
     return (
       <div>
         <input
