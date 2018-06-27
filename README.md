@@ -11,7 +11,7 @@ The application requires Node.js to run.
 
 Clone from GIT repository.
 ```
-$ git clone .......
+$ git clone https://github.com/PeMajer/project-10-Neighborhood-Map.git
 ```
 Open a terminal at the project directory and run `npm install` to install all dependencies.
 
@@ -23,7 +23,7 @@ NOTE: The Service worker works only in production mode.
 
 In the project directory, you can run:
 
-### `npm start`
+**`npm start`**
 
 Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -31,11 +31,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 
-### `npm test`
+**`npm test`**
 
 Launches the test runner in the interactive watch mode.
 
-### `npm run build`
+**`npm run build`**
 
 Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -46,4 +46,11 @@ The build is minified and the filenames include the hashes.
 * [Google Map API](https://developers.google.com/maps/documentation/javascript/tutorial)
 * [FourSquare API](https://developer.foursquare.com/docs/api/getting-started)
 
+## Contributing
+* Fork the repository.
+* Create a branch for the work you’re going to do.
+* Make your changes in your branch.
+* Send a pull request from your branch to this repository.
 
+## License
+It is free software, and may be redistributed under the terms specified in the [license file](LICENSE.md).
