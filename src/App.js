@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Map from './Map';
 import Filter from './Filter';
 import escapeRegExp from 'escape-string-regexp';
